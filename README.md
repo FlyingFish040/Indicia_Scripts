@@ -21,12 +21,12 @@ Voor versie drie is er in overleg met de opdrachtgever voor gekozen de automatis
 https://www.youtube.com/watch?v=sqqu7Z992d4
 
 ## V4 
-Na het automatiseren was de wens van de opdrachtgever om de databronnen uit te breiden. Hierbij heb zijn Crypto pagina's van Reddit toegevoegd. In deze versie is er ook gefocust op een filter die ook in Google Sheets uit te breiden is door de eindgebruiker.
+Na het automatiseren was de wens van de opdrachtgever om de databronnen uit te breiden. Hierbij heb zijn Crypto pagina's van Reddit toegevoegd. In deze versie is er ook gefocust op een filter die ook in Google Sheets uit te breiden is door de eindgebruiker. 
 <break>
 https://www.youtube.com/watch?v=iK2t2GUmoY4
 
 ## V5 
-Tot dusver is er alleen een notebook gehanteerd; dit diende als script op een server te komen. Hiervoor is het nodige aan optimalisatie verwerkt, in onder andere de dedupliceeracties. Daarnaast is er een IF-loop toegevoegd die het script 1x per dag (in de nacht) op doet schonen op basis van ouderdom van de observatie.
+Tot dusver is er alleen een notebook gehanteerd; dit diende als script op een server te komen. Hiervoor is het nodige aan optimalisatie verwerkt, in onder andere de dedupliceeracties. Daarnaast is er een IF-loop toegevoegd die het script 1x per dag (in de nacht) op doet schonen op basis van ouderdom van de observatie. In versie 5 is ook de derde/laatste bron toegevoegd; Twitter API.
 <break>
 https://www.youtube.com/watch?v=kAw_n8j66bE
 
