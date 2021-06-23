@@ -2,6 +2,7 @@
 In deze git hebben we de volgende bestanden opgenomen: 
 - benodigde bestanden voor het installeren van het script
 - 5 versies van notebooks als ontwikkeling van het script
+- Einddocument ter oplevering project
 
 .RMD bestanden zijn te openen in Rstudio en .R bestanden zijn te openen in zowel notepad, R als Rstudio.
 
