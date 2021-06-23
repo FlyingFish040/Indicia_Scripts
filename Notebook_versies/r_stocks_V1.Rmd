@@ -1,0 +1,59 @@
+---
+title: "r_stocks V1"
+---
+
+---
+Reddit
+r/stocks
+<p> nodes & <H3> nodes
+---
+
+#Laden van benodigde libraries
+```{r message=FALSE, warning=FALSE, paged.print=TRUE}
+library(rvest) #Web scraping
+library(tidyverse)
+library(tidytext)
+```
+
+#laden van URL
+```{r}
+webpage <- "https://www.reddit.com/r/stocks/new/"
+webpage_data <- read_html(webpage)
+```
+
+#Extraheren van tekstelementen uit H3 van body
+Alle posts van Reddit bevatten een titel 
+```{r warning=FALSE}
+all_content <- webpage_data %>%
+  html_nodes('p, h3') %>% #
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+```
+
+#verwerken van tekst
+```{r}
+text <- enframe(all_content, name="id", value="waarde")
+keywords <- text %>%
+  unnest_tokens(word,waarde)
+```
+
+#Woorden tellen :)
+```{r}
+totals <- keywords %>%
+  group_by(word) %>%
+  count(word) %>%
+  filter( n > 1) %>%
+  arrange(desc(n))
+```
+
+#Wegschrijven van resultaten in csv
+```{r}
+write.csv(keywords[,2], file="r_stocksV1.csv")
+```
+
+#Script maken
+```{r}
+knitr::purl("r_stocks V1.rmd", output ="r_stocks V1.R")
+```
+

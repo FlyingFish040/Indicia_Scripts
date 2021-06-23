@@ -1,0 +1,145 @@
+---
+title: "r_stocks V2"
+---
+
+---
+Reddit
+r/stocks
+r/investing
+r/wallstreetbets
+r/fatfire
+r/robinhood
+r/stockmarket
+---
+
+#Laden van benodigde libraries
+```{r message=FALSE, warning=FALSE, paged.print=TRUE}
+library(rvest) #Web scraping
+library(tidyverse)
+library(tidytext)
+library(lsa) #stopwoorden Engels
+library(openxlsx)
+```
+
+#laden van alle URL r/stocks
+```{r}
+webpage_stocks <- "https://www.reddit.com/r/stocks/new/"
+webpage_investing <- "https://www.reddit.com/r/investing/new/"
+webpage_wallstreetbets <- "https://www.reddit.com/r/wallstreetbets/new/"
+webpage_fatfire <- "https://www.reddit.com/r/fatFIRE/new/"
+webpage_robinhood <- "https://www.reddit.com/r/RobinHood/new/"
+webpage_stockmarket <- "https://www.reddit.com/r/StockMarket/new/"
+
+data_stocks <- read_html(webpage_stocks)
+data_investing <- read_html(webpage_investing)
+data_wallstreetbets <- read_html(webpage_wallstreetbets)
+data_fatfire <- read_html(webpage_fatfire)
+data_robinhood <- read_html(webpage_robinhood)
+data_stockmarket <- read_html(webpage_stockmarket)
+```
+
+#Extraheren van tekstelementen uit p en H3 van body
+Alle posts van Reddit bevatten een titel in H3 en tekst uit een p
+```{r warning=FALSE}
+H3_stocks <- data_stocks %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+H3_investing <- data_investing %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+H3_wallstreetbets <- data_wallstreetbets %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+H3_fatfire <- data_fatfire %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+H3_robinhood <- data_robinhood %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+H3_stockmarket <- data_stockmarket %>%
+  html_nodes('p, h3') %>%
+  html_text(trim = TRUE) %>%
+  str_squish() %>%
+  str_trim()
+
+
+```
+
+#Koppelen H3 strings in master string
+```{r}
+H3_master <- c(H3_stocks, H3_investing, H3_wallstreetbets, H3_fatfire, H3_robinhood, H3_stockmarket)
+```
+
+#verwerken van tekst
+```{r}
+text <- enframe(H3_master, name="id", value="waarde")
+keywords <- text %>%
+  unnest_tokens(word,waarde)
+```
+
+#opschonen van tekst
+```{r}
+#standaard stopwoorden in tabel verzamelen
+stopwords_en_tibble <- enframe(stopwords_en, name="id", value="word")
+
+```
+
+#Uitbreiden stopwoorden
+```{r}
+#stopwoorden uitbreiden
+
+extra_words_filter <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "2020", "2021",
+                        "portfolio","stock", "stocks", "time", "cash", "day", "money", "price", "bank", "swap", "currency", "i’m", "it’s", "i’ve", "isn’t", 
+                        "term", "hope", "invest", "wondering", "buy", "house", "happened", "immediately", "online", "digital", "https", "http", "bought", "body",
+                        "share", "sell", "don’t", "firm", "investing", "investment", "investors", "market", "month", "week", "day"
+                        )
+
+```
+
+#tabellen samenvoegen
+```{r}
+extra_words_filter_tibble <- enframe(extra_words_filter, name="id", value="word")
+stopwords_en_tibble_new <- rbind(stopwords_en_tibble, extra_words_filter_tibble)
+```
+
+#Anti join voor het filteren van stopwoorden (staandaard + toegevoegd)
+```{r}
+clean_keywords <- keywords %>% 
+      anti_join(stopwords_en_tibble_new, by = c("word" = "word")) %>%
+      anti_join(stop_words, by = c("word" = "word"))
+```
+
+#Woorden tellen :)
+```{r}
+totals <- clean_keywords %>%
+  group_by(word) %>%
+  count(word) %>%
+  filter( n > 1) %>%
+  arrange(desc(n))
+```
+
+#Wegschrijven van resultaten in XLSX
+```{r}
+write.xlsx(totals, file = "totals_V4.xlsx",
+           sheetName="Totals", append=TRUE)
+```
+
+#Script maken
+```{r}
+knitr::purl("r_stocks V4.rmd", output ="r_stocks V4.R")
+```
