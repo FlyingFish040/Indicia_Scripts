@@ -12,18 +12,22 @@ https://www.youtube.com/watch?v=DrJ8hFhDcPY
 
 ## V2
 Na een werkend barebones script te hebben, is de groep uit gaan breiden met 6 Reddit pagina's en een woordenfilter voor stopwoorden.
+<break>
 https://www.youtube.com/watch?v=84Hc4W08rEw
 
 ## V3
 Voor versie drie is er in overleg met de opdrachtgever voor gekozen de automatisering te prioriteren. Hierbij hebben we een vorm van database uitgezocht en dit verwerkt in R. Daarnaast is er een vorm van deduplicatie toegepast.
+<break>
 https://www.youtube.com/watch?v=sqqu7Z992d4
 
 ## V4 
 Na het automatiseren was de wens van de opdrachtgever om de databronnen uit te breiden. Hierbij heb zijn Crypto pagina's van Reddit toegevoegd. In deze versie is er ook gefocust op een filter die ook in Google Sheets uit te breiden is door de eindgebruiker.
+<break>
 https://www.youtube.com/watch?v=iK2t2GUmoY4
 
 ## V5 
 Tot dusver is er alleen een notebook gehanteerd; dit diende als script op een server te komen. Hiervoor is het nodige aan optimalisatie verwerkt, in onder andere de dedupliceeracties. Daarnaast is er een IF-loop toegevoegd die het script 1x per dag (in de nacht) op doet schonen op basis van ouderdom van de observatie.
+<break>
 https://www.youtube.com/watch?v=kAw_n8j66bE
 
 
