@@ -7,6 +7,7 @@ In deze git hebben we de volgende bestanden opgenomen:
 
 ## V1
 In de eerste versie stond het verkennen van de mogelijkheden centraal. Er ontstond een werkende tekstmining en konden deze verwerken middels een wordcount.
+<break>
 https://www.youtube.com/watch?v=DrJ8hFhDcPY
 
 ## V2
